@@ -10,7 +10,8 @@
   },
     "files": [
         "amour/amour_new.ts",
-        "autoplusone/autoplusone.ts"
+        "autoplusone/autoplusone.ts",
+        "jrrp/jrrp.ts"
     ],
     "exclude": [
     "node_modules"
