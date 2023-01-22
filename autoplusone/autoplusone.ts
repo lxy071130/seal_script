@@ -4,7 +4,7 @@ import "../seal"
 // @author       檀轶步棋
 // @version      1.0.1
 // @timestamp    1674216875
-// @license      GNU GPLv3
+// @license      MIT
 // ==/UserScript==
 
 let startReplyOn = 3; //已经存在这么多+1消息后，触发回复

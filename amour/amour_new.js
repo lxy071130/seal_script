@@ -3,7 +3,7 @@
 // @author       檀轶步棋
 // @version      1.0.0
 // @timestamp    1674314233
-// @license      GNU GPLv3
+// @license      MIT
 // ==/UserScript==
 /** 每日送礼次数上限 */
 let giftDayMax = 2;

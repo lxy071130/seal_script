@@ -3,7 +3,7 @@
 // @author       檀轶步棋
 // @version      1.0.1
 // @timestamp    1673925040
-// @license      Apache-2
+// @license      MIT
 // ==/UserScript==
 let rpExt = seal.ext.find("greetings");
 if (!rpExt) {
