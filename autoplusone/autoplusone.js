@@ -1,4 +1,3 @@
-import "../seal";
 // ==UserScript==
 // @name         自动加一插件
 // @author       檀轶步棋
