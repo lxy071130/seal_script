@@ -16,9 +16,7 @@ if (!plusExt) {
     seal.ext.register(plusExt);
 }
 
-let lastMessages = new Map();
-let msgCounts = new Map();
-let hasReplied = new Map();
+let lastMessages, msgCounts, hasReplied = new Map();
 function getLastMessageOf(ctx: seal.MsgContext) {
     if (lastMessages.has(ctx.group.groupId)) {
         return lastMessages.get(ctx.group.groupId);

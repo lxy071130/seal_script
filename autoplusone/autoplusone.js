@@ -1,3 +1,4 @@
+import "../seal";
 // ==UserScript==
 // @name         自动加一插件
 // @author       檀轶步棋
@@ -11,9 +12,7 @@ if (!plusExt) {
     plusExt = seal.ext.new("plusone", "檀轶步棋", "1.0.1");
     seal.ext.register(plusExt);
 }
-let lastMessages = new Map();
-let msgCounts = new Map();
-let hasReplied = new Map();
+let lastMessages, msgCounts, hasReplied = new Map();
 function getLastMessageOf(ctx) {
     if (lastMessages.has(ctx.group.groupId)) {
         return lastMessages.get(ctx.group.groupId);
