@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "sourceMap": true,
+      "lib": [
+          "dom",
+          "es2017"
+      ]
+  },
+    "files": [
+        "amour/amour_new.ts",
+        "autoplusone/autoplusone.ts"
+    ],
+    "exclude": [
+    "node_modules"
+  ]
+}
