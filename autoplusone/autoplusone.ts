@@ -1,4 +1,5 @@
 import "../seal"
+import ext = seal.ext;
 // ==UserScript==
 // @name         自动加一插件
 // @author       檀轶步棋
@@ -16,7 +17,9 @@ if (!plusExt) {
     seal.ext.register(plusExt);
 }
 
-let lastMessages, msgCounts, hasReplied = new Map();
+let lastMessages = new Map()
+let msgCounts = new Map()
+let hasReplied = new Map();
 function getLastMessageOf(ctx: seal.MsgContext) {
     if (lastMessages.has(ctx.group.groupId)) {
         return lastMessages.get(ctx.group.groupId);
@@ -36,6 +39,8 @@ plusExt.onNotCommandReceived = (ctx, msg) => {
             }
             else {
                 if (msgCounts.get(ctx.group.groupId) == (startReplyOn - 1)) { // 达到触发+1次数，回复
+                    hasReplied.set(ctx.group.groupId, true);
+                    msgCounts.set(ctx.group.groupId, 1);
                     seal.replyToSender(ctx, msg, msg.message);
                     return seal.ext.newCmdExecuteResult(true);
                 }
@@ -54,15 +59,9 @@ plusExt.onNotCommandReceived = (ctx, msg) => {
         if (lastMsg != msg.message) { // 终于，不再是+1了
             hasReplied.set(ctx.group.groupId, false);
             lastMessages.set(ctx.group.groupId, msg.message);
+            msgCounts.set(ctx.group.groupId, 1);
         }
     }
     // console.log(ctx.group.groupId + ", " + msg.message + ", " + msgCounts.get(ctx.group.groupId));
     return seal.ext.newCmdExecuteResult(false);
 };
-
-plusExt.onMessageSend = (ctx, messageType, userId, text, flag) => {
-    msgCounts.set(ctx.group.groupId, 1);
-    hasReplied.set(ctx.group.groupId, true);
-}
-
-export {} //消除编译时报错
