@@ -8,6 +8,7 @@
     - [Amour：好感度插件](#amour)
     - [Autoplusone：复读插件](#autoplusone)
     - [JRRP：回复问候信息插件](#jrrp)
+    - [Teamup：团队管理插件](#teamup)
 - [如何安装](#如何安装)
 
 ## Amour
@@ -42,6 +43,12 @@
 一个能使得骰子回复诸如“早上好”“晚安”等消息的插件，可自定义程度较高。
 
 该插件需要[随机菜品](https://github.com/sealdice/draw/blob/main/sealdice_draw/%E9%9A%8F%E6%9C%BA%E8%8F%9C%E5%93%81-%E4%BA%8E%E8%A8%80%E8%AF%BA.json)和任意塔罗牌牌堆才能运行。请记得在代码中根据指示，将对应代码改成您的塔罗牌牌堆名。
+
+## Teamup
+（仅限 QQ 使用）一个团队管理插件，能够在群组中创建团队并一键@团队所有成员。
+
+### 指令
+见扩展 help 文件（使用`.team help`查看）。
 
 ## 如何安装
 1. 在对应文件夹中下载编译后的 *.js* 文件（.ts 文件为 TypeScript 源码，不被海豹支持）。
