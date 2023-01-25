@@ -41,7 +41,9 @@ plusExt.onNotCommandReceived = (ctx, msg) => {
                 if (msgCounts.get(ctx.group.groupId) == (startReplyOn - 1)) { // 达到触发+1次数，回复
                     hasReplied.set(ctx.group.groupId, true);
                     msgCounts.set(ctx.group.groupId, 1);
-                    seal.replyToSender(ctx, msg, msg.message);
+                    setTimeout(() => {
+                        seal.replyToSender(ctx, msg, msg.message)
+                    }, 100);
                     return seal.ext.newCmdExecuteResult(true);
                 }
                 else { // 还未达到次数，继续
