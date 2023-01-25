@@ -146,6 +146,7 @@ declare namespace seal {
         /** 指令映射 */
         cmdMap: { [key: string]: CmdItemInfo };
         onNotCommandReceived: (ctx: MsgContext, msg: Message) => CmdExecuteResult;
+        onMessageSend(ctx: MsgContext, messageType: string, userId: string, text: string, flag: string);
         /** 存放数据 */
         storageSet(key: string, value: string);
         /** 取数据 */

@@ -30,9 +30,7 @@ plusExt.onNotCommandReceived = (ctx, msg) => {
             }
             else {
                 if (msgCounts.get(ctx.group.groupId) == (startReplyOn - 1)) { // 达到触发+1次数，回复
-                    hasReplied.set(ctx.group.groupId, true);
                     seal.replyToSender(ctx, msg, msg.message);
-                    msgCounts.set(ctx.group.groupId, 1);
                     return seal.ext.newCmdExecuteResult(true);
                 }
                 else { // 还未达到次数，继续
@@ -55,4 +53,8 @@ plusExt.onNotCommandReceived = (ctx, msg) => {
     }
     // console.log(ctx.group.groupId + ", " + msg.message + ", " + msgCounts.get(ctx.group.groupId));
     return seal.ext.newCmdExecuteResult(false);
+};
+plusExt.onMessageSend = (ctx, messageType, userId, text, flag) => {
+    msgCounts.set(ctx.group.groupId, 1);
+    hasReplied.set(ctx.group.groupId, true);
 };
