@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c417aeeb-689a-427a-be7d-bd140e7da221" name="变更" comment="">
+      <change beforePath="$PROJECT_DIR$/autoplusone/autoplusone.ts" beforeDir="false" afterPath="$PROJECT_DIR$/autoplusone/autoplusone.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/billboard/billboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/billboard/billboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/billboard/billboard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/billboard/billboard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/seal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/name_advanced/name_advanced.js" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2KiML0sjvYJqoKBu9bQdNC84ZKp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/leonel_hou/GitHub Reps/seal_script&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/leonel_hou/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/223.8617.44/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/teamup" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/hitokoto" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="c417aeeb-689a-427a-be7d-bd140e7da221" name="变更" comment="" />
+      <created>1674452890869</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1674452890869</updated>
+      <workItem from="1674452891797" duration="2739000" />
+      <workItem from="1674631839265" duration="240000" />
+      <workItem from="1674638882492" duration="1329000" />
+      <workItem from="1674640293571" duration="5042000" />
+      <workItem from="1674647464946" duration="796000" />
+      <workItem from="1674707060884" duration="64000" />
+      <workItem from="1674713874014" duration="13000" />
+      <workItem from="1674713892029" duration="2000" />
+      <workItem from="1675837536391" duration="1210000" />
+      <workItem from="1675910612155" duration="466000" />
+      <workItem from="1675932943042" duration="21519000" />
+      <workItem from="1675956301733" duration="162000" />
+      <workItem from="1675998420533" duration="884000" />
+      <workItem from="1676009863110" duration="937000" />
+      <workItem from="1676014194908" duration="11000" />
+      <workItem from="1676037606312" duration="10000" />
+      <workItem from="1676040026648" duration="42000" />
+      <workItem from="1676040335335" duration="44000" />
+      <workItem from="1676040511842" duration="1395000" />
+      <workItem from="1676075167525" duration="3000" />
+      <workItem from="1676076668198" duration="465000" />
+      <workItem from="1676100963372" duration="5071000" />
+      <workItem from="1676110097587" duration="2078000" />
+      <workItem from="1676112318619" duration="94000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/autoplusone/autoplusone.js" />
+        <option value="$PROJECT_DIR$/jrrp/jrrp.js" />
+        <option value="$PROJECT_DIR$/name_advanced/name_advanced.js" />
+        <option value="$PROJECT_DIR$/teamup/teamup.js" />
+        <option value="$PROJECT_DIR$/amour/amour_new.js" />
+      </list>
+    </option>
+  </component>
+</project>

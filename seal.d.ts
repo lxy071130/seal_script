@@ -146,6 +146,7 @@ declare namespace seal {
         /** 指令映射 */
         cmdMap: { [key: string]: CmdItemInfo };
         onNotCommandReceived: (ctx: MsgContext, msg: Message) => CmdExecuteResult;
+        onCommandReceived: (ctx: MsgContext, msg: Message) => CmdExecuteResult;
         onMessageSend(ctx: MsgContext, messageType: string, userId: string, text: string, flag: string);
         /** 存放数据 */
         storageSet(key: string, value: string);
@@ -233,4 +234,5 @@ declare namespace seal {
     export function getCtxProxyFirst(ctx: MsgContext, msg: Message): MsgContext;
     /** 回复发送者(发送者私聊即私聊回复，群内即群内回复) */
     export function replyToSender(ctx: MsgContext, msg: Message, text: string): void;
+    export function replyGroup(ctx: MsgContext, msg: Message, text: string): void;
 }

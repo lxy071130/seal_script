@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         骰主公告插件
 // @author       檀轶步棋
-// @version      1.0.1
-// @timestamp    1676075432
+// @version      1.1.1
+// @timestamp    1676100990
 // @description  骰主公开发布公告插件，由海豹群@阿飞 赞助。
 // @license      MIT
 // ==/UserScript==
 let ext = seal.ext.find("billboard");
 if (!ext) {
-    ext = seal.ext.new("billboard", "檀轶步棋", "1.0.1");
+    ext = seal.ext.new("billboard", "檀轶步棋", "1.1.1");
     seal.ext.register(ext);
 }
 function FormatDate() {
@@ -18,61 +18,45 @@ function FormatDate() {
 class DatabaseManager {
     ctx;
     groupId;
-    billboardData;
     groupHistory;
-    isPrivate = true;
-    constructor(ctx) {
+    msg;
+    looper = 0;
+    constructor(ctx, msg) {
         this.ctx = ctx;
+        this.msg = msg;
         this.groupId = ctx.group.groupId;
-        this.isPrivate = ctx.isPrivate;
         this.RefreshDatabase();
-    }
-    GetUUID() {
-        for (let p = 0; true; p++) {
-            if (this.billboardData[p] === undefined) {
-                return p;
-            }
-        }
     }
     Post(str) {
         let post = new Object({
             date: FormatDate(),
             content: str
         });
-        let id = this.GetUUID();
-        this.billboardData[id] = post;
-        ext.storageSet("bill", JSON.stringify(this.billboardData));
-        this.RefreshDatabase();
-    }
-    CheckPublicity(msg) {
-        if (Object.entries(this.billboardData).length > 3) {
-            for (let k = (Object.entries(this.billboardData).length - 3); k < Object.entries(this.billboardData).length; k++) {
-                let v = this.billboardData[k];
-                if (this.groupHistory[k] === undefined) {
-                    setTimeout(() => {
-                        seal.replyToSender(this.ctx, msg, `来自骰主的公告：\n` +
-                            `${v["date"]}\n` +
-                            `${v["content"]}`);
-                    }, 1000);
-                    this.groupHistory[k] = "read";
-                    ext.storageSet(`group_${this.groupId}`, JSON.stringify(this.groupHistory));
-                    this.RefreshDatabase();
-                }
-            }
+        if (this.groupHistory.length > 0) {
+            this.Loop(this.groupHistory, post);
         }
-        else if (Object.entries(this.billboardData).length > 0) {
-            for (let [k, v] of Object.entries(this.billboardData)) {
-                if (this.groupHistory[k] === undefined) {
-                    setTimeout(() => {
-                        seal.replyToSender(this.ctx, msg, `来自骰主的公告：\n` +
-                            `${v["date"]}\n` +
-                            `${v["content"]}`);
-                    }, 1000);
-                    this.groupHistory[k] = "read";
-                    ext.storageSet(`group_${this.groupId}`, JSON.stringify(this.groupHistory));
-                    this.RefreshDatabase();
-                }
+    }
+    Loop(v, post) {
+        let mmsg = this.msg;
+        setTimeout(() => {
+            mmsg.groupId = v[this.looper];
+            seal.replyGroup(this.ctx, mmsg, `来自骰主的公告：\n` +
+                `${post["date"]}\n` +
+                `${post["content"]}`);
+            if (this.looper < (this.groupHistory.length - 1)) {
+                this.looper++;
+                this.Loop(v, post);
             }
+            else
+                this.looper = 0;
+        }, 1000);
+    }
+    CheckAndRecordGroup() {
+        if (this.groupHistory.indexOf(this.groupId) === -1) {
+            this.groupHistory.push(this.groupId);
+            ext.storageSet("group", JSON.stringify(this.groupHistory));
+            console.log(`【公告插件】${this.groupId}已经被记录，下一条公告将会包括这个群组。`);
+            this.RefreshDatabase();
         }
     }
     RefreshDatabase() {
@@ -80,10 +64,7 @@ class DatabaseManager {
             setTimeout(() => {
                 resolve(200);
             }, 800);
-            this.billboardData = JSON.parse(ext.storageGet("bill") || "{}");
-            if (!this.isPrivate) {
-                this.groupHistory = JSON.parse(ext.storageGet(`group_${this.groupId}`) || "{}");
-            }
+            this.groupHistory = JSON.parse(ext.storageGet("group") || "[]");
         });
         ReadData
             .catch(error => {
@@ -97,9 +78,14 @@ cmd.help = ".post 内容 //发布公告，仅限骰主使用";
 cmd.solve = (ctx, msg, args) => {
     switch (ctx.privilegeLevel) {
         case 100: {
-            let manager = new DatabaseManager(ctx);
-            manager.Post(args.rawArgs);
-            seal.replyToSender(ctx, msg, "公告已经发布。");
+            let manager = new DatabaseManager(ctx, msg);
+            try {
+                manager.Post(args.rawArgs);
+            }
+            catch (err) {
+                console.error(err);
+            }
+            seal.replyToSender(ctx, msg, "公告将会发送给已经开启骰子，且最近有发言记录的群。");
             break;
         }
         default:
@@ -108,14 +94,12 @@ cmd.solve = (ctx, msg, args) => {
     return seal.ext.newCmdExecuteResult(true);
 };
 ext.cmdMap["post"] = cmd;
-ext.onNotCommandReceived = (ctx, msg) => {
+const Handle = (ctx, msg) => {
     if (!ctx.isPrivate) {
-        //console.log("Yes")
-        let manager = new DatabaseManager(ctx);
-        manager.CheckPublicity(msg);
-        return seal.ext.newCmdExecuteResult(true);
+        let manager = new DatabaseManager(ctx, msg);
+        manager.CheckAndRecordGroup();
     }
-    else
-        //ignore
-        return seal.ext.newCmdExecuteResult(false);
+    return seal.ext.newCmdExecuteResult(true);
 };
+ext.onNotCommandReceived = (ctx, msg) => Handle(ctx, msg);
+ext.onCommandReceived = (ctx, msg) => Handle(ctx, msg);
