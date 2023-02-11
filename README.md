@@ -9,6 +9,8 @@
     - [Autoplusone：复读插件](#autoplusone)
     - [JRRP：回复问候信息插件](#jrrp)
     - [Teamup：团队管理插件](#teamup)
+    - [Name_Advanced：扩展姓名插件](#nameadvanced)
+    - [Billboard：骰主发布公告插件](#billboard)
 - [如何安装](#如何安装)
 
 ## Amour
@@ -49,6 +51,24 @@
 
 ### 指令
 见扩展 help 文件（使用`.team help`查看）。
+
+## Name_Advanced
+一个基于 [Behind The Name](https://behindthename.com) 的姓名插件，对西方姓名提供更多选择。
+
+**注意：使用该插件需要在网站注册并获取 API 密钥。**
+
+### 指令
+- `.namep search` 查找姓名来历
+- `.namep alias` 查找姓名别名
+- `.namep <gen>` 生成随机姓名
+
+更多请用 `.namep help` 查看。
+
+## Billboard
+便于骰主发布公告的插件。当群里有人说话后，骰子会转发最新三条公告。
+
+### 指令
+`.post` 发布公告。
 
 ## 如何安装
 1. 在对应文件夹中下载编译后的 *.js* 文件（.ts 文件为 TypeScript 源码，不被海豹支持）。
