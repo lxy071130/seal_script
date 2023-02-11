@@ -2,22 +2,24 @@ import "../seal"
 // ==UserScript==
 // @name         骰主公告插件
 // @author       檀轶步棋
-// @version      1.1.1
-// @timestamp    1676100990
+// @version      1.1.2
+// @timestamp    1676125305
 // @description  骰主公开发布公告插件，由海豹群@阿飞 赞助。
 // @license      MIT
 // ==/UserScript==
 
 let ext = seal.ext.find("billboard")
 if (!ext) {
-    ext = seal.ext.new("billboard", "檀轶步棋", "1.1.1")
+    ext = seal.ext.new("billboard", "檀轶步棋", "1.1.2")
     seal.ext.register(ext)
 }
 
 function FormatDate() {
     const DateRaw = new Date();
-    return `${DateRaw.getFullYear().toString()}/${(DateRaw.getMonth() + 1).toString()}/${DateRaw.getDate().toString()} ${DateRaw.getHours().toString()}:${DateRaw.getMinutes().toString()}`
+    return [DateRaw.valueOf().toString(), `${DateRaw.getFullYear().toString()}/${(DateRaw.getMonth() + 1).toString()}/${DateRaw.getDate().toString()} ${DateRaw.getHours().toString()}:${DateRaw.getMinutes().toString()}`]
 }
+
+let latestPost = undefined
 
 class DatabaseManager {
     ctx; groupId; groupHistory; msg
@@ -29,43 +31,34 @@ class DatabaseManager {
         this.RefreshDatabase()
     }
     Post(str: string) {
-        let post = new Object({
-            date: FormatDate(),
+        let dates = FormatDate()
+        latestPost = new Object({
+            date: dates[1],
+            date_raw: dates[0],
             content: str
         })
-        if (this.groupHistory.length > 0) {
-            this.Loop(this.groupHistory, post)
+    }
+    CheckAndPost() {
+        if (this.groupHistory !== undefined && latestPost !== undefined) {
+            if (this.groupHistory[latestPost["date_raw"]] === undefined) {
+                this.groupHistory[latestPost["date_raw"]] = []
+            }
+            if (this.groupHistory[latestPost["date_raw"]].indexOf(this.groupId) == -1) {
+                this.groupHistory[latestPost["date_raw"]].push(this.groupId)
+                seal.replyGroup(this.ctx, this.msg, `来自骰主的公告：\n` +
+                    `${latestPost["date"]}\n` +
+                    `${latestPost["content"]}`)
+                ext.storageSet("group", JSON.stringify(this.groupHistory))
+                this.RefreshDatabase()
+            }
         }
     }
-    private Loop(v: string[], post: Object) {
-        let mmsg = this.msg
-        setTimeout(() => {
-            mmsg.groupId = v[this.looper];
-            seal.replyGroup(this.ctx, mmsg, `来自骰主的公告：\n` +
-                `${post["date"]}\n` +
-                `${post["content"]}`);
-            if (this.looper < (this.groupHistory.length - 1)) {
-                this.looper++
-                this.Loop(v, post)
-            } else
-                this.looper = 0
-        }, 1000);
-    }
-    CheckAndRecordGroup() {
-        if (this.groupHistory.indexOf(this.groupId) === -1) {
-            this.groupHistory.push(this.groupId)
-            ext.storageSet("group", JSON.stringify(this.groupHistory))
-            console.log(`【公告插件】${this.groupId}已经被记录，下一条公告将会包括这个群组。`)
-            this.RefreshDatabase()
-        }
-    }
-
     RefreshDatabase() {
         const ReadData = new Promise(resolve => {
             setTimeout(() => {
                 resolve(200)
             }, 800)
-            this.groupHistory = JSON.parse(ext.storageGet("group") || "[]")
+            this.groupHistory = JSON.parse(ext.storageGet("group") || "{}")
         })
         ReadData
             .catch(error => {
@@ -81,9 +74,9 @@ cmd.solve = (ctx, msg, args) => {
     switch (ctx.privilegeLevel) {
         case 100: {
             let manager = new DatabaseManager(ctx, msg)
-            try{
+            try {
                 manager.Post(args.rawArgs)
-            } catch(err) {
+            } catch (err) {
                 console.error(err)
             }
             seal.replyToSender(ctx, msg, "公告将会发送给已经开启骰子，且最近有发言记录的群。")
@@ -100,7 +93,7 @@ ext.cmdMap["post"] = cmd
 const Handle = (ctx: seal.MsgContext, msg: seal.Message) => {
     if (!ctx.isPrivate) {
         let manager = new DatabaseManager(ctx, msg)
-        manager.CheckAndRecordGroup()
+        manager.CheckAndPost()
     }
     return seal.ext.newCmdExecuteResult(true)
 }
