@@ -72,9 +72,9 @@ cmd.solve = (ctx, msg, args) => {
         case 100: {
             switch (args.getArgN(1)){
                 case 'help': {
-                    seal.replyToSender(ctx, msg, `.post 内容 //发布公告，仅限骰主使用`)
-                    seal.ext.newCmdExecuteResult(true);
-                    break;
+                    let ret = seal.ext.newCmdExecuteResult(true);
+                    ret.showHelp = true;
+                    return ret;
                 }
                 default: {
                     switch (args.args.length){
@@ -101,14 +101,14 @@ cmd.solve = (ctx, msg, args) => {
         default: {
             switch(args.getArgN(1)){
                 case 'help': {
-                    seal.replyToSender(ctx, msg, `.post 内容 //发布公告，仅限骰主使用`)
-                    seal.ext.newCmdExecuteResult(true);
-                    break;
+                    let ret = seal.ext.newCmdExecuteResult(true);
+                    ret.showHelp = true;
+                    return ret;
                 }
                 case '': {
-                    seal.replyToSender(ctx, msg, `.post 内容 //发布公告，仅限骰主使用`)
-                    seal.ext.newCmdExecuteResult(true);
-                    break;
+                    let ret = seal.ext.newCmdExecuteResult(true);
+                    ret.showHelp = true;
+                    return ret;
                 }
                 default: {
                     seal.replyToSender(ctx, msg, `只有骰主可以发布公告！`)
