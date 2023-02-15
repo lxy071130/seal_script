@@ -70,18 +70,51 @@ cmd.help = ".post 内容 //发布公告，仅限骰主使用";
 cmd.solve = (ctx, msg, args) => {
     switch (ctx.privilegeLevel) {
         case 100: {
-            let manager = new DatabaseManager(ctx, msg);
-            try {
-                manager.Post(args.rawArgs);
+            switch (args.getArgN(1)){
+                case 'help': {
+                    seal.replyToSender(ctx, msg, `.post 内容 //发布公告，仅限骰主使用`)
+                    seal.ext.newCmdExecuteResult(true);
+                    break;
+                }
+                default: {
+                    switch (args.args.length){
+                        case 0: {
+                            seal.replyToSender(ctx, msg, `请输入要发送的公告内容！`);
+                            break;
+                        }
+                        default: {
+                            let manager = new DatabaseManager(ctx, msg);
+                            try {
+                                manager.Post(args.rawArgs);
+                            }
+                            catch (err) {
+                                console.error(err);
+                            }
+                            seal.replyToSender(ctx, msg, "公告将会发送给已经开启骰子，且最近有发言记录的群。");
+                            break;
+                        }
+                    }
+                }
             }
-            catch (err) {
-                console.error(err);
-            }
-            seal.replyToSender(ctx, msg, "公告将会发送给已经开启骰子，且最近有发言记录的群。");
             break;
         }
-        default:
-            seal.replyToSender(ctx, msg, "仅有骰主能够发布公告。");
+        default: {
+            switch(args.getArgN(1)){
+                case 'help': {
+                    seal.replyToSender(ctx, msg, `.post 内容 //发布公告，仅限骰主使用`)
+                    seal.ext.newCmdExecuteResult(true);
+                    break;
+                }
+                case '': {
+                    seal.replyToSender(ctx, msg, `.post 内容 //发布公告，仅限骰主使用`)
+                    seal.ext.newCmdExecuteResult(true);
+                    break;
+                }
+                default: {
+                    seal.replyToSender(ctx, msg, `只有骰主可以发布公告！`)
+                }
+            }
+        }
     }
     return seal.ext.newCmdExecuteResult(true);
 };
